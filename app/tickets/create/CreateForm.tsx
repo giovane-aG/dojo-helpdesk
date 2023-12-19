@@ -10,8 +10,32 @@ export default function CreateForm() {
   const [priority, setPriority] = useState<string>("low");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(false);
+
+    const ticket = {
+      title,
+      body,
+      priority,
+      user_email: "giovane@email.com",
+    };
+
+    const response = await fetch("http://localhost:4000/tickets", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ticket),
+    });
+
+    if (response.status === 201) {
+      router.push("/tickets");
+    }
+  };
+
   return (
-    <form className="w-1/2">
+    <form onSubmit={handleSubmit} className="w-1/2">
       <label>
         <span>Title:</span>
         <input
