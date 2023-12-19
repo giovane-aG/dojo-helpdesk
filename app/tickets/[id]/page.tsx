@@ -25,7 +25,7 @@ const getTicket = async (id: number) => {
   return res.json();
 };
 
-export default async function TicketDetails({ params }) {
+export default async function TicketDetails({ params }: any) {
   const ticket: Ticket = await getTicket(params.id);
   return (
     <main>
